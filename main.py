@@ -42,4 +42,4 @@ def glow_donate(num=1, room_id=12306):
 if __name__ == '__main__':
     get_glow()
     glow_donate(74, 12306)
-    get_glow(1,99999)
+    glow_donate(1,99999)
