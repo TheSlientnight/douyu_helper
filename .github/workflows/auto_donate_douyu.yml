@@ -1,4 +1,4 @@
-name: Daily donate git in 12306
+name: Daily donate in 12306
 
 on:
   push:
