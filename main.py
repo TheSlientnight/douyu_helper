@@ -1,5 +1,6 @@
 import requests
 import os
+import logging
 
 GLOW_URL = "https://www.douyu.com/japi/prop/backpack/web/v1?rid=12306"
 HEADER = {
@@ -18,9 +19,9 @@ def get_glow():
         assert glow_res.status_code == 200
         assert glow_res.json()['msg'] == "success"
         own = glow_res.json()['data']['list'][0]['count']
-        print("成功获取荧光棒%d个,给你喜欢的主播进行赠送吧" % own)
+        logging.info("成功获取荧光棒%d个,给你喜欢的主播进行赠送吧" % own)
     except AssertionError:
-        print("领取荧光棒时发生错误")
+        logging.info("领取荧光棒时发生错误")
     return glow_res
 
 
@@ -30,13 +31,13 @@ def glow_donate(num=1, room_id=12306):
     try:
         assert donate_res.status_code == 200
         assert donate_res.json()['msg'] == "success"
-        print("已向房间号%d赠送荧光棒%d个" % (room_id, num))
+        logging.info("已向房间号%d赠送荧光棒%d个" % (room_id, num))
     except AssertionError:
         if donate_res.json()['msg'] == "用户没有足够的道具":
             own = get_glow().json()['data']['list'][0]['count']
-            print("赠送荧光棒失败,当前背包中荧光棒数量为:%d" % own)
+            logging.error("赠送荧光棒失败,当前背包中荧光棒数量为:%d" % own)
         else:
-            print(donate_res.json()['msg'])
+            logging.error(donate_res.json()['msg'])
 
 
 if __name__ == '__main__':
