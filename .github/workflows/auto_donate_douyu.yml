@@ -1,0 +1,23 @@
+name: Daily donate git in 12306
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '00 1 * * *'
+
+jobs:
+  leetcode-weekly:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+      - name: 'Set up Python'
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: 'Working'
+        env:
+          SCKEY: ${{ secrets.COOKIE }}
+        run: python main.py
