@@ -1,6 +1,7 @@
 import requests
 from requests.sessions import session
 import logging
+import os
 
 
 class DYHTTPRequests:
