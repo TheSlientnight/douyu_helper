@@ -1,47 +1,55 @@
-import requests
-import os
+from common.dy_glows import *
+from common.login_check import *
+from common.mode_choose import *
+from common.dy_badge import *
 import logging
-
+import math
 
 logging.basicConfig(level=logging.INFO)
-GLOW_URL = "https://www.douyu.com/japi/prop/backpack/web/v1?rid=12306"
-HEADER = {
-    "Content-Type": "application/x-www-form-urlencoded",
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36 Edg/88.0.705.81",
-    "referer": "https://www.douyu.com/topic/s11cb_0?rid=12306",
-    "Cookie": os.environ["COOKIES"]
-}
-DONATE_URL = "https://www.douyu.com/japi/prop/donate/mainsite/v1"
 
 
-def get_glow():
-    glow_res = requests.get(GLOW_URL, headers=HEADER)
-    try:
-        assert glow_res.status_code == 200
-        assert glow_res.json()['msg'] == "success"
-        own = glow_res.json()['data']['list'][0]['count']
-        logging.info("成功获取荧光棒%d个,给你喜欢的主播进行赠送吧" % own)
-    except AssertionError:
-        logging.info("领取荧光棒时发生错误")
-    return glow_res
-
-
-def glow_donate(num=1, room_id=12306):
-    DATA = "propId=268&propCount=%d&roomId=%d&bizExt={\"yzxq\":{}}" % (num, room_id)
-    donate_res = requests.post(url=DONATE_URL, headers=HEADER, data=DATA)
-    try:
-        assert donate_res.status_code == 200
-        assert donate_res.json()['msg'] == "success"
-        logging.info("已向房间号%d赠送荧光棒%d个" % (room_id, num))
-    except AssertionError:
-        if donate_res.json()['msg'] == "用户没有足够的道具":
-            own = get_glow().json()['data']['list'][0]['count']
-            logging.error("赠送荧光棒失败,当前背包中荧光棒数量为:%d" % own)
-        else:
-            logging.error(donate_res.json()['msg'])
+def run():
+    logging.info("------登录检查开始------")
+    login_res = is_login()
+    logging.info("------登录检查结束------")
+    mode = conf.get_mode()
+    if login_res:
+        logging.info("------背包检查开始------")
+        get_glow()
+        try:
+            glow_nums = get_own()
+            assert glow_nums != 0
+            logging.info("------背包检查结束------")
+            if mode == 1:
+                logging.info("当前选择模式为:自选模式")
+                nums = conf.get_conf()[0]
+                room_list = conf.get_conf()[1]
+                logging.info("------开始捐赠荧光棒------")
+                for i in range(len(nums)):
+                    glow_donate(nums[i], room_list[i])
+                logging.info("------荧光棒捐赠结束------")
+                get_need_exp()
+            elif mode == 0:
+                logging.info("当前选择模式为:平均分配模式")
+                room_list = get_room_list()
+                every_give = math.ceil(glow_nums / len(b))
+                left = glow_nums - every_give
+                logging.info("------开始捐赠荧光棒------")
+                for room in room_list:
+                    if room == room_list[-1]:
+                        glow_donate(left, room)
+                    else:
+                        glow_donate(every_give, room)
+                logging.info("------荧光棒捐赠结束------")
+                get_need_exp()
+            else:
+                logging.warning("配置错误,没有这种选项,请修改配置并重新执行")
+        except Exception as e:
+            logging.warning("背包中没有荧光棒,无法执行赠送,任务即将结束")
+            print(e)
+    else:
+        logging.warning("未登录状态无法进行后续操作,任务已结束")
 
 
 if __name__ == '__main__':
-    get_glow()
-    glow_donate(74, 12306)
-    glow_donate(1,99999)
+    run()
