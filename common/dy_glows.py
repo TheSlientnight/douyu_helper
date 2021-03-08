@@ -3,7 +3,7 @@ import requests
 import os
 from common.logger import logger
 from common.douyu_request import dyreq
-import time
+from time import time
 
 Bags = 0
 Own = 0
@@ -16,7 +16,7 @@ def get_glow():
     # 需要先访问一次直播间才会获得道具
     into_data = "v=220120210309&did=0d945ed357b50e80ee2ee63400021501&tt=%s&sign=3ca6f479a64b61d22d4c85ee28b535ac&cdn" \
                 "=&rate=0&ver=Douyu_221030405&iar=1&ive=0&hevc=0" % int(
-        time.time())
+        time())
     into_room = dyreq.request("post", "/lapi/live/getH5Play/12313", data=into_data)
     print(into_room.status_code)
     glow_url = "/japi/prop/backpack/web/v1?rid=12306"
