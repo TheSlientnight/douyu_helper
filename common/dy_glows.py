@@ -54,8 +54,10 @@ def glow_donate(num=1, room_id=12306):
         try:
             assert donate_res.status_code == 200
             assert donate_res.json()['msg'] == "success"
+            global Own
             # 计算剩余荧光棒
             now_left = int(Own) - int(num)
+            Own = now_left
             logging.info("向房间号%s赠送荧光棒%s个成功,当前剩余%s个" % (room_id, num, now_left))
         except AssertionError:
             if donate_res.json()['msg'] == "用户没有足够的道具":
