@@ -3,7 +3,7 @@
 import logging
 import logging.handlers
 from common.config import conf
-from dirs import file_log, LOGS_DIR
+from common.dirs import file_log, LOGS_DIR
 
 
 class Logger:
