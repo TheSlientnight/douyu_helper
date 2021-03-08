@@ -14,14 +14,7 @@ class Config(configparser.ConfigParser):
         self.file = conf_path
         self.read(self.file, encoding="utf8")
 
-    def get_mode(self):
-        """
-        :return:返回配置文件中选择的模式
-        """
-        mode = self.getint("Modechoose", "giveMode")
-        return mode
-
-    def get_conf(self, section, *options) -> dict:
+    def get_conf(self, section, *options):
         op_list = []
         if options:
             for option in options:
@@ -40,5 +33,5 @@ conf = Config()
 
 if __name__ == '__main__':
     a = Config()
-    b = a.get_conf_list("selfMode", "giftCount")
+    b = a.get_conf("Modechoose")['givemode']
     print(b)

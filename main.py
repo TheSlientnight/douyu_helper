@@ -12,7 +12,7 @@ def run():
     logger.info("------登录检查开始------")
     login_res = is_login()
     logger.info("------登录检查结束------")
-    mode = conf.get_conf("Modechoose")['giveMode']
+    mode = conf.get_conf("Modechoose")['givemode']
     if login_res:
         logger.info("------背包检查开始------")
         get_glow()
@@ -22,8 +22,8 @@ def run():
             logger.info("------背包检查结束------")
             if mode == 1:
                 logger.info("当前选择模式为:自选模式")
-                nums = conf.get_conf_list('selfMode')['giftCount']
-                room_list = conf.get_conf_list('selfMode')['roomId']
+                nums = conf.get_conf_list('selfMode', 'giftCount')
+                room_list = conf.get_conf_list('selfMode', 'roomId')
                 logger.info("------开始捐赠荧光棒------")
                 for i in range(len(nums)):
                     glow_donate(nums[i], room_list[i])
