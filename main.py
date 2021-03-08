@@ -11,7 +11,7 @@ def run():
     logger.info("------登录检查开始------")
     login_res = is_login()
     logger.info("------登录检查结束------")
-    mode = conf.get_conf("Modechoose")['givemode']
+    mode = int(conf.get_conf("Modechoose")['givemode'])
     if login_res:
         logger.info("------背包检查开始------")
         get_glow()

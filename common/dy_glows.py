@@ -18,7 +18,6 @@ def get_glow():
                 "=&rate=0&ver=Douyu_221030405&iar=1&ive=0&hevc=0" % int(
         time())
     into_room = dyreq.request("post", "/lapi/live/getH5Play/12313", data=into_data)
-    print(into_room.status_code)
     glow_url = "/japi/prop/backpack/web/v1?rid=12306"
     glow_res = dyreq.request("get", glow_url)
     global Bags

@@ -13,7 +13,7 @@ class Config(configparser.ConfigParser):
         self.file = conf_path
         self.read(self.file, encoding="utf8")
 
-    def get_conf(self, section, *options):
+    def get_conf(self, section, *options) -> dict:
         op_list = []
         if options:
             for option in options:
