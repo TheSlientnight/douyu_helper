@@ -7,8 +7,6 @@ from common.dy_badge import *
 from common.logger import logger
 import math
 
-logger.basicConfig(level=logger.INFO)
-
 
 def run():
     logger.info("------登录检查开始------")
