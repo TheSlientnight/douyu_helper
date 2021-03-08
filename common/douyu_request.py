@@ -4,6 +4,7 @@ import logging
 import os
 
 
+# 重写请求方法,便于直接获取结果
 class DYHTTPRequests:
 
     def __init__(self):

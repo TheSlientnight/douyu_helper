@@ -10,6 +10,9 @@ login_url = "/lapi/member/api/getInfo"
 
 
 def is_login():
+    """
+    :return:返回登陆结果,用于主程序判断
+    """
     global Is_login
     login = dyreq.request("get", login_url).json()['msg']['info']
     if login:

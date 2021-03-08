@@ -7,6 +7,9 @@ logging.basicConfig(level=logging.INFO)
 
 
 def get_badge():
+    """
+    :return: 获取具有粉丝牌的房间号、当前经验、升级所需经验、升级还需要的经验
+    """
     badges_url = "/member/cp/getFansBadgeList"
     badges = dyreq.request("get", badges_url)
     html = etree.HTML(badges.text, etree.HTMLParser())
@@ -30,6 +33,9 @@ def get_badge():
 
 
 def get_room_list():
+    """
+    :return:通过数组方式返回房间号
+    """
     room_list = []
     for room in get_badge()[0]:
         room_list.append(room)
@@ -37,6 +43,9 @@ def get_room_list():
 
 
 def get_need_exp():
+    """
+    :return:通过数组方式返回升级所需经验
+    """
     for i in range(len(get_badge()[1])):
         logging.info("房间号%s升级还需%s点经验" % (get_room_list()[i], get_badge()[1][i]))
 
