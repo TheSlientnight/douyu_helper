@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # encoding:utf-8
 from common.douyu_request import dyreq
 from common.logger import logger

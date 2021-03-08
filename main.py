@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # encoding:utf-8
 from common.dy_glows import *
 from common.login_check import *

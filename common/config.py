@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # encoding:utf-8
 import configparser
 from common.dirs import *
