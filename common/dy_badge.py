@@ -1,9 +1,9 @@
-from common.douyu_request import *
-import logging
+#!/usr/bin/python
+# encoding:utf-8
+from common.douyu_request import dyreq
+from common.logger import logger
 from lxml import etree
 import re
-
-logging.basicConfig(level=logging.INFO)
 
 
 def get_badge():
@@ -47,7 +47,7 @@ def get_need_exp():
     :return:通过数组方式返回升级所需经验
     """
     for i in range(len(get_badge()[1])):
-        logging.info("房间号%s升级还需%s点经验" % (get_room_list()[i], get_badge()[1][i]))
+        logger.info("房间号%s升级还需%s点经验" % (get_room_list()[i], get_badge()[1][i]))
 
 
 if __name__ == '__main__':

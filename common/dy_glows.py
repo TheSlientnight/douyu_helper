@@ -1,10 +1,11 @@
+#!/usr/bin/python
+# encoding:utf-8
 import requests
 import os
-import logging
-from common.douyu_request import *
+from common.logger import logger
+from common.douyu_request import dyreq
 
 Bags = 0
-logging.basicConfig(level=logging.INFO)
 Own = 0
 
 
@@ -25,12 +26,12 @@ def get_glow():
         if glow_res.json()['data']['list']:
             global Own
             Own = glow_res.json()['data']['list'][0]['count']
-            logging.info("成功获取荧光棒%s个,给你喜欢的主播进行赠送吧" % Own)
+            logger.info("成功获取荧光棒%s个,给你喜欢的主播进行赠送吧" % Own)
             Bags = 1
         else:
-            logging.warning("当前背包中没有任何道具")
+            logger.warning("当前背包中没有任何道具")
     except AssertionError:
-        logging.info("领取荧光棒时发生错误")
+        logger.info("领取荧光棒时发生错误")
     return glow_res
 
 
@@ -58,12 +59,12 @@ def glow_donate(num=1, room_id=12306):
             # 计算剩余荧光棒
             now_left = int(Own) - int(num)
             Own = now_left
-            logging.info("向房间号%s赠送荧光棒%s个成功,当前剩余%s个" % (room_id, num, now_left))
+            logger.info("向房间号%s赠送荧光棒%s个成功,当前剩余%s个" % (room_id, num, now_left))
         except AssertionError:
             if donate_res.json()['msg'] == "用户没有足够的道具":
-                logging.warning("向房间号%s赠送荧光棒失败,当前背包中荧光棒数量为:%s,而设定捐赠数量为%s" % (room_id, Own, num))
+                logger.warning("向房间号%s赠送荧光棒失败,当前背包中荧光棒数量为:%s,而设定捐赠数量为%s" % (room_id, Own, num))
             else:
-                logging.warning(donate_res.json()['msg'])
+                logger.warning(donate_res.json()['msg'])
 
 
 if __name__ == '__main__':

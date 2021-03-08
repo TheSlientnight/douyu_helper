@@ -1,9 +1,8 @@
-from common.douyu_request import *
-import logging
+#!/usr/bin/python
+# encoding:utf-8
+from common.douyu_request import dyreq
+from common.logger import logger
 import os
-
-logging.basicConfig(level=logging.INFO)
-
 
 Is_login = 0
 login_url = "/lapi/member/api/getInfo"
@@ -18,10 +17,10 @@ def is_login():
     if login:
         Is_login = 1
         user_name = login['nn']
-        logging.info("Cookie有效,登陆成功")
-        logging.info("用户名称:{}".format(user_name))
+        logger.info("Cookie有效,登陆成功")
+        logger.info("用户名称:{}".format(user_name))
     else:
-        logging.warning("登陆失败,请检查Cookie有效性")
+        logger.warning("登陆失败,请检查Cookie有效性")
     return Is_login
 
 

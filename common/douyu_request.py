@@ -1,6 +1,7 @@
+#!/usr/bin/python
+# encoding:utf-8
 import requests
 from requests.sessions import session
-import logging
 import os
 
 
