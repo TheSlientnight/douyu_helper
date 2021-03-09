@@ -19,10 +19,11 @@ jobs:
           python-version: 3.7
       - name: 'Install requirements'
         run: pip install -r requirements.txt
+      - name: 'Set driver'
+        run: sudo cp -p ./chrome/chromedriver /usr/bin
+        chmod -R 777 /usr/bin/chromedriver
       - name: 'Working'
         env:
           COOKIES: ${{ secrets.COOKIES }}
-        run: |
-          sudo cp -p ./chrome/chromedriver /usr/bin
-          chmod -R 777 /usr/bin/chromedriver
+        run:
           python main.py
