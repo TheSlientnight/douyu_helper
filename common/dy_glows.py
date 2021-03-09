@@ -1,9 +1,8 @@
 # encoding:utf-8
-import requests
-import os
-from common.logger import logger
-from common.douyu_request import dyreq
 from time import time
+
+from common.douyu_request import dyreq
+from common.logger import logger
 
 Bags = 0
 Own = 0
@@ -14,9 +13,8 @@ def get_glow():
     :return: 领取结果的基本格式
     """
     # 需要先访问一次直播间才会获得道具
-    into_data = "v=220120210309&did=0d945ed357b50e80ee2ee63400021501&tt=%s&sign=3ca6f479a64b61d22d4c85ee28b535ac&cdn" \
-                "=&rate=0&ver=Douyu_221030405&iar=1&ive=0&hevc=0" % int(
-        time())
+    into_data = "v=220120210309&did=0d945ed357b50e80ee2ee63400021501&tt={}&sign=3ca6f479a64b61d22d4c85ee28b535ac&cdn" \
+                "=&rate=0&ver=Douyu_221030405&iar=1&ive=0&hevc=0".format(int(time()))
     into_room = dyreq.request("post", "/lapi/live/getH5Play/12313", data=into_data)
     glow_url = "/japi/prop/backpack/web/v1?rid=12306"
     glow_res = dyreq.request("get", glow_url)
@@ -55,10 +53,10 @@ def glow_donate(num=1, room_id=12306):
     # 背包中含有道具才会进行赠送，否则会报错
     if Bags:
         donate_res = dyreq.request(method="post", path=donate_url, data=DATA)
+        global Own
         try:
             assert donate_res.status_code == 200
             assert donate_res.json()['msg'] == "success"
-            global Own
             # 计算剩余荧光棒
             now_left = int(Own) - int(num)
             Own = now_left

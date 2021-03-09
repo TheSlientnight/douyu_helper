@@ -1,7 +1,6 @@
 # encoding:utf-8
 from common.douyu_request import dyreq
 from common.logger import logger
-import os
 
 Is_login = 0
 login_url = "/lapi/member/api/getInfo"
