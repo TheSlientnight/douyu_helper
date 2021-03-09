@@ -1,5 +1,7 @@
 # encoding:utf-8
-from time import time
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from time import sleep
 
 from common.douyu_request import dyreq
 from common.logger import logger
@@ -7,15 +9,15 @@ from common.logger import logger
 Bags = 0
 Own = 0
 
+cookies = {}
+
 
 def get_glow():
     """
     :return: 领取结果的基本格式
     """
     # 需要先访问一次直播间才会获得道具
-    into_data = "v=220120210309&did=0d945ed357b50e80ee2ee63400021501&tt={}&sign=3ca6f479a64b61d22d4c85ee28b535ac&cdn" \
-                "=&rate=0&ver=Douyu_221030405&iar=1&ive=0&hevc=0".format(int(time()))
-    into_room = dyreq.request("post", "/lapi/live/getH5Play/12313", data=into_data)
+    go_room()
     glow_url = "/japi/prop/backpack/web/v1?rid=12306"
     glow_res = dyreq.request("get", glow_url)
     global Bags
@@ -68,5 +70,38 @@ def glow_donate(num=1, room_id=12306):
                 logger.warning(donate_res.json()['msg'])
 
 
+def go_room():
+    chrome_options = Options()
+    chrome_options.add_argument('headless')
+    driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver")
+    glows = driver.get('https://www.douyu.com/12306')
+    init(dyreq.cookie)
+    for i in cookies.keys():
+        mycookie = {
+            'domain': '.douyu.com',
+            'name': i,
+            'value': cookies[i],
+            'expires': '',
+            'path': '/',
+            'httpOnly': False,
+            'HostOnly': False,
+            'Secure': False,
+        }
+        driver.add_cookie(mycookie)
+    driver.refresh()
+    sleep(5)
+    driver.refresh()
+    sleep(3)
+    driver.quit()
+
+
+def init(cookie):
+    c = cookie
+    for line in c.split(';'):
+        # 其设置为1就会把字符串拆分成2份
+        name, value = line.strip().split('=', 1)
+        cookies[name] = value
+
+
 if __name__ == '__main__':
-    get_glow()
+    go_room()
