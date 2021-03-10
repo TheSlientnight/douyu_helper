@@ -2,12 +2,13 @@
 import requests
 from common.dirs import LOGS_DIR, LOG_FILE
 from common.logger import logger
+import re
 
 
 def log_reader():
     with open(LOG_FILE, 'r', encoding="UTF-8") as lg:
         logs = lg.readlines()
-        logs_str = ''.join(logs)
+        logs_str = ''.join(logs).replace("\n","\n\n")
     return logs_str
 
 
