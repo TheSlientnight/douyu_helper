@@ -24,6 +24,7 @@ jobs:
       - name: 'Working'
         env:
           COOKIES: ${{ secrets.COOKIES }}
+          SERVERPUSHKEY: ${{ secrets.SERVERPUSHKEY }}
         run: |
           sudo cp -p ./chrome/chromedriver /usr/bin/
           chmod -R 777 /usr/bin/chromedriver
