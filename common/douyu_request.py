@@ -1,6 +1,7 @@
 # encoding:utf-8
-from requests.sessions import session
 import os
+
+from requests.sessions import session
 
 
 # 重写请求方法,便于直接获取结果
@@ -17,17 +18,15 @@ class DYHTTPRequests:
             "Cookie": self.cookie
         }
 
-    def __del__(self):
-        self.session.close()
-
     def request(self, method, path, **kwargs):
         url = "https://www.douyu.com" + path
         method.upper()
         return self.session.request(method, url=url, headers=self.header, **kwargs)
 
+    def __del__(self):
+        self.session.close()
+
 
 dyreq = DYHTTPRequests()
-
 if __name__ == '__main__':
     print(dyreq.request("get", "/lapi/member/api/getInfo").json())
-    print(dyreq.cookie)

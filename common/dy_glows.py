@@ -17,6 +17,7 @@ def get_glow():
     :return: 领取结果的基本格式
     """
     # 需要先访问一次直播间才会获得道具
+    logger.info("------执行获取荧光棒任务------")
     go_room()
     glow_url = "/japi/prop/backpack/web/v1?rid=12306"
     glow_res = dyreq.request("get", glow_url)
@@ -72,12 +73,15 @@ def glow_donate(num=1, room_id=12306):
 
 def go_room():
     chrome_options = Options()
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument('--disable-gpu')
-    driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver")
-    glows = driver.get('https://www.douyu.com/12306')
-    init(dyreq.cookie)
+    chrome_options.add_argument('--window-size=1920,1080')  # 设置当前窗口的宽度，高度
+    chrome_options.add_argument('--no-sandbox')  # 解决DevToolsActivePort文件不存在报错问题
+    chrome_options.add_argument('--disable-gpu')  # 禁用GPU硬件加速，如果软件渲染器没有就位，则GPU进程将不会启动
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--headless')  # 无界面
+    driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver",options=chrome_options)
+    logger.info("------打开直播间------")
+    driver.get('https://www.douyu.com/12306')
+    setcookie(dyreq.cookie)
     for i in cookies.keys():
         mycookie = {
             'domain': '.douyu.com',
@@ -90,16 +94,18 @@ def go_room():
             'Secure': False,
         }
         driver.add_cookie(mycookie)
+    logger.info("------刷新页面------")
     driver.refresh()
     sleep(5)
+    logger.info("------再次刷新页面------")
     driver.refresh()
     sleep(3)
     driver.quit()
+    logger.info("------关闭直播间------")
 
 
-def init(cookie):
-    c = cookie
-    for line in c.split(';'):
+def setcookie(cookie):
+    for line in cookie.split(';'):
         # 其设置为1就会把字符串拆分成2份
         name, value = line.strip().split('=', 1)
         cookies[name] = value

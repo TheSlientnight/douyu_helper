@@ -1,3 +1,4 @@
 requests==2.21.0
 lxml==4.6.2
 selenium>=3.141.0
+pyvirtualdisplay
