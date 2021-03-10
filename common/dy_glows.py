@@ -72,7 +72,9 @@ def glow_donate(num=1, room_id=12306):
 
 def go_room():
     chrome_options = Options()
-    chrome_options.add_argument('headless')
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-gpu')
     driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver")
     glows = driver.get('https://www.douyu.com/12306')
     init(dyreq.cookie)
