@@ -12,7 +12,6 @@ def log_reader():
 
 
 def send_message(send_key) -> None:
-    logger.info("------执行server酱推送------")
     url = "https://sctapi.ftqq.com/{}.send".format(send_key)
     data = {
         "title": u"DouYu-Helper执行结果",
@@ -20,6 +19,7 @@ def send_message(send_key) -> None:
     }
     if data['desp']:
         try:
+            logger.info("------执行server酱推送------")
             send_log = requests.post(url, data=data)
             logger.info("------推送成功------")
         except Exception as e:

@@ -17,11 +17,12 @@ def get_glow():
     :return: 领取结果的基本格式
     """
     # 需要先访问一次直播间才会获得道具
-    logger.info("------执行获取荧光棒任务------")
+    logger.info("------正在获取荧光棒------")
     go_room()
     glow_url = "/japi/prop/backpack/web/v1?rid=12306"
     glow_res = dyreq.request("get", glow_url)
     global Bags
+    logger.info("------背包检查开始------")
     try:
         # 查询获取到的荧光棒
         assert glow_res.status_code == 200
@@ -30,12 +31,15 @@ def get_glow():
         if glow_res.json()['data']['list']:
             global Own
             Own = glow_res.json()['data']['list'][0]['count']
-            logger.info("成功获取荧光棒%s个,给你喜欢的主播进行赠送吧" % Own)
+            logger.info("当前拥有荧光棒%s个,给你喜欢的主播进行赠送吧" % Own)
             Bags = 1
+            logger.info("------背包检查结束------")
         else:
             logger.warning("当前背包中没有任何道具")
+            logger.info("------背包检查结束------")
     except AssertionError:
         logger.info("领取荧光棒时发生错误")
+        logger.info("------背包检查结束------")
     return glow_res
 
 

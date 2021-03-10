@@ -16,11 +16,9 @@ def run():
     mode = int(conf.get_conf("Modechoose")['givemode'])
     if login_res:
         get_glow()
-        logger.info("------背包检查开始------")
         try:
             glow_nums = get_own()
             assert glow_nums != 0
-            logger.info("------背包检查结束------")
             if mode == 1:
                 logger.info("当前选择模式为:自选模式")
                 nums = conf.get_conf_list('selfMode', 'giftCount')
@@ -47,7 +45,6 @@ def run():
                 logger.warning("配置错误,没有这种选项,请修改配置并重新执行")
         except Exception as e:
             logger.warning("背包中没有荧光棒,无法执行赠送,任务即将结束")
-            print(e)
     else:
         logger.warning("未登录状态无法进行后续操作,任务已结束")
     server_key = get_secrets("SERVERPUSHKEY")
