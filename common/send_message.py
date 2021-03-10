@@ -1,13 +1,11 @@
 # encoding:utf-8
 import requests
-from common.dirs import LOGS_DIR
+from common.dirs import LOGS_DIR, LOG_FILE
 from common.logger import logger
-
-log_file = os.path.join(LOGS_DIR, "daily.log")
 
 
 def log_reader():
-    with open(log_file, 'r', encoding="UTF-8") as lg:
+    with open(LOG_FILE, 'r', encoding="UTF-8") as lg:
         logs = lg.readlines()
         logs_str = ''.join(logs)
     return logs_str
