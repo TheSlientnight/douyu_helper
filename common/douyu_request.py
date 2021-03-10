@@ -1,14 +1,13 @@
 # encoding:utf-8
-import os
-
 from requests.sessions import session
+from common.get_secrets import get_secrets
 
 
 # 重写请求方法,便于直接获取结果
 class DYHTTPRequests:
 
     def __init__(self):
-        self.cookie = os.environ['COOKIES']
+        self.cookie = get_secrets("COOKIES")
         self.session = session()
         self.header = {
             "Content-Type": "application/x-www-form-urlencoded",

@@ -14,7 +14,7 @@ def file_log(filepath):
     dir = LOGS_DIR
     if not os.path.exists(dir):
         os.makedirs(dir)
-    return os.path.join(dir, "{}.log".format(time.strftime('%Y-%m-%d')))
+    return os.path.join(dir, "daily.log")
 
 
 if __name__ == '__main__':

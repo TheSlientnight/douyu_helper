@@ -2,21 +2,7 @@
 <project version="4">
   <component name="PublishConfigData" autoUpload="Always" serverName="dy_helper" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="Copy of project-level server 'dy_helper'">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/home/ubuntu/dy_helper" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
       <paths name="dy_helper">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/home/ubuntu/dy_helper" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="myserver_mypython">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />

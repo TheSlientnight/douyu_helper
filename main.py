@@ -5,6 +5,8 @@ from common.config import conf
 from common.dy_badge import *
 from common.logger import logger
 import math
+from common.get_secrets import get_secrets
+from common.send_message import send_message
 
 
 def run():
@@ -48,6 +50,8 @@ def run():
             print(e)
     else:
         logger.warning("未登录状态无法进行后续操作,任务已结束")
+    server_key = get_secrets("SERVERPUSHKEY")
+    send_message(server_key)
 
 
 if __name__ == '__main__':
