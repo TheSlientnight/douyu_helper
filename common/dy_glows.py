@@ -83,7 +83,7 @@ def go_room():
     chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument('--headless')  # 无界面
     driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver",options=chrome_options)
-    logger.info("------打开直播间------")
+    logger.info("打开直播间")
     driver.get('https://www.douyu.com/12306')
     setcookie(dyreq.cookie)
     for i in cookies.keys():
@@ -98,14 +98,14 @@ def go_room():
             'Secure': False,
         }
         driver.add_cookie(mycookie)
-    logger.info("------刷新页面------")
+    logger.info("刷新页面以完成登录")
     driver.refresh()
     sleep(5)
-    logger.info("------再次刷新页面------")
+    logger.info("再次刷新页面")
     driver.refresh()
     sleep(3)
     driver.quit()
-    logger.info("------关闭直播间------")
+    logger.info("关闭直播间")
 
 
 def setcookie(cookie):
