@@ -31,7 +31,7 @@ def run():
             elif mode == 0:
                 logger.info("当前选择模式为:平均分配模式")
                 room_list = get_room_list()
-                every_give = math.ceil(glow_nums / len(b))
+                every_give = math.ceil(glow_nums / len(room_list))
                 left = glow_nums - every_give
                 logger.info("------开始捐赠荧光棒------")
                 for room in room_list:
@@ -45,10 +45,15 @@ def run():
                 logger.warning("配置错误,没有这种选项,请修改配置并重新执行")
         except Exception as e:
             logger.warning("背包中没有荧光棒,无法执行赠送,任务即将结束")
+            logger.info(e)
     else:
         logger.warning("未登录状态无法进行后续操作,任务已结束")
-    server_key = get_secrets("SERVERPUSHKEY")
-    send_message(server_key)
+    try:
+        server_key = get_secrets("SERVERPUSHKEY")
+        send_message(server_key)
+    except Exception as e:
+        logger.info("当前未配置Server酱推送，任务结束")
+        logger.debug(e)
 
 
 if __name__ == '__main__':
