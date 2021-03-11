@@ -87,8 +87,7 @@ def go_room():
     if "win" in sys.platform:
         driver = webdriver.Chrome(executable_path="../chrome/chromedriver.exe", options=chrome_options)
     elif "linux" in sys.platform:
-        os.system("sudo cp -p ./chrome/chromedriver /usr/bin | sudo chmod -R 777 /usr/bin/chromedriver")
-        driver = webdriver.Chrome(executable_path="../chrome/chromedriver", options=chrome_options)
+        driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver", options=chrome_options)
     else:
         driver = webdriver.Chrome(options=chrome_options)
     logger.info("打开直播间")
