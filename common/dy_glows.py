@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from time import sleep
 import sys
-import os
 
 from common.douyu_request import dyreq
 from common.logger import logger
