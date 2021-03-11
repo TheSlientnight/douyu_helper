@@ -21,7 +21,7 @@ jobs:
       - name: 'Install requirements'
         run: pip install -r requirements.txt
       - name: 'Set driver'
-        run: sudo cp -p ./chrome/chromedriver /usr/bin | sudo chmod -R 777 /usr/bin/chromedriver
+        run: sudo chmod 777 ./chrome/chromedriver
       - name: 'Working'
         env:
           COOKIES: ${{ secrets.COOKIES }}

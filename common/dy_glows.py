@@ -2,6 +2,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from time import sleep
+import sys
 
 from common.douyu_request import dyreq
 from common.logger import logger
@@ -82,7 +83,12 @@ def go_room():
     chrome_options.add_argument('--disable-gpu')  # 禁用GPU硬件加速，如果软件渲染器没有就位，则GPU进程将不会启动
     chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument('--headless')  # 无界面
-    driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver",options=chrome_options)
+    if "win" in sys.platform:
+        driver = webdriver.Chrome(executable_path="../chrome/chromedriver.exe", options=chrome_options)
+    elif "linux" in sys.platform:
+        driver = webdriver.Chrome(executable_path="../chrome/chromedriver", options=chrome_options)
+    else:
+        driver = webdriver.Chrome(options=chrome_options)
     logger.info("打开直播间")
     driver.get('https://www.douyu.com/12306')
     setcookie(dyreq.cookie)
