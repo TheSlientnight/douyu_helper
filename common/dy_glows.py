@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from time import sleep
 import sys
+import os
 
 from common.douyu_request import dyreq
 from common.logger import logger
@@ -86,6 +87,7 @@ def go_room():
     if "win" in sys.platform:
         driver = webdriver.Chrome(executable_path="../chrome/chromedriver.exe", options=chrome_options)
     elif "linux" in sys.platform:
+        os.system("sudo cp -p ./chrome/chromedriver /usr/bin | sudo chmod -R 777 /usr/bin/chromedriver")
         driver = webdriver.Chrome(executable_path="../chrome/chromedriver", options=chrome_options)
     else:
         driver = webdriver.Chrome(options=chrome_options)
