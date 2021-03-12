@@ -15,7 +15,7 @@ class DYHTTPRequests:
 
     def __init__(self):
         self.auth = get_secrets('ACF_AUTH')
-        self.cookie = setcookie(self.auth)
+        self.cookie = "acf_auth:{}".format(self.auth)
         self.session = session()
         self.header = {
             "Content-Type": "application/x-www-form-urlencoded",
