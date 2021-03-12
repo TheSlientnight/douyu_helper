@@ -106,10 +106,10 @@ def go_room():
         driver.add_cookie(mycookie)
     logger.info("刷新页面以完成登录")
     driver.refresh()
-    sleep(5)
+    sleep(10)
     logger.info("再次刷新页面")
     driver.refresh()
-    sleep(3)
+    sleep(10)
     driver.quit()
     logger.info("关闭直播间")
 
