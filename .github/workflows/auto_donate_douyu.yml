@@ -24,7 +24,7 @@ jobs:
         run: sudo cp -p ./chrome/chromedriver /usr/bin | sudo chmod -R 777 /usr/bin/chromedriver
       - name: 'Working'
         env:
-          COOKIES: ${{ secrets.COOKIES }}
+          ACF_AUTH: ${{ secrets.ACF_AUTH }}
           SERVERPUSHKEY: ${{ secrets.SERVERPUSHKEY }}
         run: |
           sudo cp -p ./chrome/chromedriver /usr/bin/

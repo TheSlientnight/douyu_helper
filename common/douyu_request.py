@@ -3,11 +3,19 @@ from requests.sessions import session
 from common.get_secrets import get_secrets
 
 
+def setcookie(cookies):
+    cookie = ''
+    for name, value in cookies.items():
+        cookie += '{0}={1};'.format(name, value)
+    return cookie
+
+
 # 重写请求方法,便于直接获取结果
 class DYHTTPRequests:
 
     def __init__(self):
-        self.cookie = get_secrets("COOKIES")
+        self.auth = get_secrets('ACF_AUTH')
+        self.cookie = setcookie(self.auth)
         self.session = session()
         self.header = {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -29,3 +37,5 @@ class DYHTTPRequests:
 dyreq = DYHTTPRequests()
 if __name__ == '__main__':
     print(dyreq.request("get", "/lapi/member/api/getInfo").json())
+    glow_url = "/japi/prop/backpack/web/v1?rid=12306"
+    print(dyreq.request("get", glow_url).json())

@@ -1,8 +1,9 @@
 # encoding:utf-8
+import sys
+from time import sleep
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from time import sleep
-import sys
 
 from common.douyu_request import dyreq
 from common.logger import logger
@@ -22,7 +23,6 @@ def get_glow():
     go_room()
     glow_url = "/japi/prop/backpack/web/v1?rid=12306"
     glow_res = dyreq.request("get", glow_url)
-    print(dyreq.cookie)
     print(glow_res.json())
     global Bags
     logger.info("------背包检查开始------")
@@ -93,19 +93,17 @@ def go_room():
         driver = webdriver.Chrome(options=chrome_options)
     logger.info("打开直播间")
     driver.get('https://www.douyu.com/12306')
-    setcookie(dyreq.cookie)
-    for i in cookies.keys():
-        mycookie = {
-            'domain': '.douyu.com',
-            'name': i,
-            'value': cookies[i],
-            'expires': '',
-            'path': '/',
-            'httpOnly': False,
-            'HostOnly': False,
-            'Secure': False,
-        }
-        driver.add_cookie(mycookie)
+    mycookie = {
+        'domain': '.douyu.com',
+        'name': 'acf_auth',
+        'value': dyreq.auth,
+        'expires': '',
+        'path': '/',
+        'httpOnly': False,
+        'HostOnly': False,
+        'Secure': False,
+    }
+    driver.add_cookie(mycookie)
     logger.info("刷新页面以完成登录")
     driver.refresh()
     sleep(10)
@@ -114,13 +112,6 @@ def go_room():
     sleep(10)
     driver.quit()
     logger.info("关闭直播间")
-
-
-def setcookie(cookie):
-    for line in cookie.split(';'):
-        # 其设置为1就会把字符串拆分成2份
-        name, value = line.strip().split('=', 1)
-        cookies[name] = value
 
 
 if __name__ == '__main__':
