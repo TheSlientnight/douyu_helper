@@ -25,6 +25,10 @@ jobs:
       - name: 'Working'
         env:
           ACF_AUTH: ${{ secrets.ACF_AUTH }}
+          ACF_UID: ${{ secrets.ACF_ACF_UID }}
+          ACF_USERNAME: ${{ secrets.ACF_USERNAME }}
+          ACF_NICKNAME: ${{ secrets.ACF_NICKNAME }}
+          DY_AUTH: ${{ secrets.DY_AUTH }}
           SERVERPUSHKEY: ${{ secrets.SERVERPUSHKEY }}
         run: |
           sudo cp -p ./chrome/chromedriver /usr/bin/

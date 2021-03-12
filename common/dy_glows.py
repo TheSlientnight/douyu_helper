@@ -23,7 +23,6 @@ def get_glow():
     go_room()
     glow_url = "/japi/prop/backpack/web/v1?rid=12306"
     glow_res = dyreq.request("get", glow_url)
-    print(glow_res.json())
     global Bags
     logger.info("------背包检查开始------")
     try:
@@ -80,7 +79,6 @@ def glow_donate(num=1, room_id=12306):
 
 def go_room():
     chrome_options = Options()
-    chrome_options.add_argument('--window-size=1920,1080')  # 设置当前窗口的宽度，高度
     chrome_options.add_argument('--no-sandbox')  # 解决DevToolsActivePort文件不存在报错问题
     chrome_options.add_argument('--disable-gpu')  # 禁用GPU硬件加速，如果软件渲染器没有就位，则GPU进程将不会启动
     chrome_options.add_argument('--disable-dev-shm-usage')
@@ -93,25 +91,38 @@ def go_room():
         driver = webdriver.Chrome(options=chrome_options)
     logger.info("打开直播间")
     driver.get('https://www.douyu.com/12306')
-    mycookie = {
-        'domain': '.douyu.com',
-        'name': 'acf_auth',
-        'value': dyreq.auth,
-        'expires': '',
-        'path': '/',
-        'httpOnly': False,
-        'HostOnly': False,
-        'Secure': False,
-    }
-    driver.add_cookie(mycookie)
+    dy_cookie = setcookie(dyreq.cookie)
+    for i in dy_cookie.keys():
+        mycookie = {
+            'domain': '.douyu.com',
+            'name': i,
+            'value': dy_cookie[i],
+            'expires': '',
+            'path': '/',
+            'httpOnly': False,
+            'HostOnly': False,
+            'Secure': False,
+        }
+        driver.add_cookie(mycookie)
     logger.info("刷新页面以完成登录")
     driver.refresh()
+    sleep(10)
+    a = driver.find_element_by_xpath("/html/body/div[1]/header/div/div/div[3]/div[7]/div")
+    print(a.get_attribute("class"))
     sleep(10)
     logger.info("再次刷新页面")
     driver.refresh()
     sleep(10)
     driver.quit()
     logger.info("关闭直播间")
+
+
+def setcookie(cookie):
+    for line in cookie.split(';'):
+        # 其设置为1就会把字符串拆分成2份
+        name, value = line.strip().split('=', 1)
+        cookies[name] = value
+    return cookies
 
 
 if __name__ == '__main__':

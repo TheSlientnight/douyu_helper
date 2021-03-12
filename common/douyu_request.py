@@ -14,8 +14,14 @@ def setcookie(cookies):
 class DYHTTPRequests:
 
     def __init__(self):
-        self.auth = get_secrets('ACF_AUTH')
-        self.cookie = "acf_auth={}".format(self.auth)
+        self.acfauth = get_secrets('ACF_AUTH')
+        self.dyauth = get_secrets('DY_AUTH')
+        self.acfuid = get_secrets('ACF_UID')
+        self.acfname = get_secrets('ACF_USERNAME')
+        self.acfnick = get_secrets('ACF_NICKNAME')
+        self.cookie = "acf_auth={};dy_auth={};acf_uid={};acf_username=;acf_nickname=".format(self.acfauth, self.dyauth,
+                                                                                             self.acfuid, self.acfname,
+                                                                                             self.acfnick)
         self.session = session()
         self.header = {
             "Content-Type": "application/x-www-form-urlencoded",
