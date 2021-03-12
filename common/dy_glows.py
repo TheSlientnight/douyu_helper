@@ -108,7 +108,9 @@ def go_room():
     driver.refresh()
     sleep(20)
     a = driver.find_element_by_xpath("/html/body/div[1]/header/div/div/div[3]/div[7]/div")
-    logger.info(a.get_attribute("class"))
+    if "UserInfo" in a.get_attribute("class"):
+        logger.info("成功以登陆状态进入页面")
+        logger.info("如提示背包没有荧光棒请延长等待时间")
     logger.info("再次刷新页面")
     driver.refresh()
     sleep(10)

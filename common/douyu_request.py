@@ -3,25 +3,10 @@ from requests.sessions import session
 from common.get_secrets import get_secrets
 
 
-# def setcookie(cookies):
-#     cookie = ''
-#     for name, value in cookies.items():
-#         cookie += '{0}={1};'.format(name, value)
-#     return cookie
-
-
 # 重写请求方法,便于直接获取结果
 class DYHTTPRequests:
 
     def __init__(self):
-        # self.acfauth = get_secrets('ACF_AUTH')
-        # self.dyauth = get_secrets('DY_AUTH')
-        # self.acfuid = get_secrets('ACF_UID')
-        # self.acfname = get_secrets('ACF_USERNAME')
-        # self.acfnick = get_secrets('ACF_NICKNAME')
-        # self.cookie = "acf_auth={};dy_auth={};acf_uid={};acf_username=;acf_nickname=".format(self.acfauth, self.dyauth,
-        #                                                                                      self.acfuid, self.acfname,
-        #                                                                                      self.acfnick)
         self.cookie = get_secrets('COOKIES')
         self.session = session()
         self.header = {
