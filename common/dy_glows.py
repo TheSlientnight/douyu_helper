@@ -106,7 +106,7 @@ def go_room():
         driver.add_cookie(mycookie)
     logger.info("刷新页面以完成登录")
     driver.refresh()
-    sleep(10)
+    sleep(20)
     a = driver.find_element_by_xpath("/html/body/div[1]/header/div/div/div[3]/div[7]/div")
     logger.info(a.get_attribute("class"))
     logger.info("再次刷新页面")
