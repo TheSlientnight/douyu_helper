@@ -45,7 +45,7 @@ def run():
                 logger.warning("配置错误,没有这种选项,请修改配置并重新执行")
         except Exception as e:
             logger.warning("背包中没有荧光棒,无法执行赠送,任务即将结束")
-            logger.info(e)
+            logger.debug(e)
     else:
         logger.warning("未登录状态无法进行后续操作,任务已结束")
     try:

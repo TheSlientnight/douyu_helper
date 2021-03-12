@@ -84,7 +84,7 @@ def go_room():
     chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument('--headless')  # 无界面
     if "win" in sys.platform:
-        driver = webdriver.Chrome(executable_path="../chrome/chromedriver.exe", options=chrome_options)
+        driver = webdriver.Chrome(executable_path="chrome/chromedriver.exe", options=chrome_options)
     elif "linux" in sys.platform:
         driver = webdriver.Chrome(executable_path="/usr/bin/chromedriver", options=chrome_options)
     else:

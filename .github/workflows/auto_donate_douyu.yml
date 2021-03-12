@@ -24,12 +24,13 @@ jobs:
         run: sudo cp -p ./chrome/chromedriver /usr/bin | sudo chmod -R 777 /usr/bin/chromedriver
       - name: 'Working'
         env:
-          ACF_AUTH: ${{ secrets.ACF_AUTH }}
-          ACF_UID: ${{ secrets.ACF_ACF_UID }}
-          ACF_USERNAME: ${{ secrets.ACF_USERNAME }}
-          ACF_NICKNAME: ${{ secrets.ACF_NICKNAME }}
-          DY_AUTH: ${{ secrets.DY_AUTH }}
+#          ACF_AUTH: ${{ secrets.ACF_AUTH }}
+#          ACF_UID: ${{ secrets.ACF_ACF_UID }}
+#          ACF_USERNAME: ${{ secrets.ACF_USERNAME }}
+#          ACF_NICKNAME: ${{ secrets.ACF_NICKNAME }}
+#          DY_AUTH: ${{ secrets.DY_AUTH }}
           SERVERPUSHKEY: ${{ secrets.SERVERPUSHKEY }}
+          COOKIES: ${{ secrets.COOKIES }}
         run: |
           sudo cp -p ./chrome/chromedriver /usr/bin/
           chmod -R 777 /usr/bin/chromedriver
