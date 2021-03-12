@@ -22,6 +22,8 @@ def get_glow():
     go_room()
     glow_url = "/japi/prop/backpack/web/v1?rid=12306"
     glow_res = dyreq.request("get", glow_url)
+    print(dyreq.cookie)
+    print(glow_res.json())
     global Bags
     logger.info("------背包检查开始------")
     try:
