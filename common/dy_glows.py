@@ -107,7 +107,7 @@ def go_room():
         driver.add_cookie(mycookie)
     logger.info("刷新页面以完成登录")
     driver.refresh()
-    WebDriverWait(driver, 10).until(lambda driver: driver.find_element_by_xpath("/html/body/div[1]/header/div/div/div[3]/div[7]/div")).send_keys("OK")
+    WebDriverWait(driver, 30).until(lambda driver: driver.find_element_by_xpath("/html/body/div[1]/header/div/div/div[3]/div[7]/div")).send_keys("OK")
     if "UserInfo" in a.get_attribute("class"):
         logger.info("成功以登陆状态进入页面")
         logger.info("如提示背包没有荧光棒请延长等待时间")
