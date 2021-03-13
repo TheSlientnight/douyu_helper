@@ -4,6 +4,7 @@ from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.wait import WebDriverWait
 
 from common.douyu_request import dyreq
 from common.logger import logger
@@ -106,8 +107,10 @@ def go_room():
         driver.add_cookie(mycookie)
     logger.info("刷新页面以完成登录")
     driver.refresh()
-    sleep(20)
-    a = driver.find_element_by_xpath("/html/body/div[1]/header/div/div/div[3]/div[7]/div")
+    a = WebDriverWait(driver,30,0.5).until(
+        driver.find_element_by_xpath("/html/body/div[1]/header/div/div/div[3]/div[7]/div")
+    )
+    print(a)
     if "UserInfo" in a.get_attribute("class"):
         logger.info("成功以登陆状态进入页面")
         logger.info("如提示背包没有荧光棒请延长等待时间")
