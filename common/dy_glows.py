@@ -41,8 +41,10 @@ def get_glow():
             logger.warning("当前背包中没有任何道具")
             logger.info("------背包检查结束------")
     except AssertionError:
-        logger.info(glow_res.json(), "\n",glow_res.status_code)
-        logger.info("领取荧光棒时发生错误")
+        if glow_res.json()['msg'] == '请登录':
+            logger.error("请更新COOKIE")
+        else:
+            logger.error("领取荧光棒时发生错误")
         logger.info("------背包检查结束------")
     return glow_res
 
