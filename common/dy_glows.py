@@ -21,7 +21,7 @@ def get_glow():
     """
     # 需要先访问一次直播间才会获得道具
     logger.info("------正在获取荧光棒------")
-    # go_room()
+    go_room()
     glow_url = "/japi/prop/backpack/web/v1?rid=12306"
     glow_res = dyreq.request("get", glow_url)
     global Bags
