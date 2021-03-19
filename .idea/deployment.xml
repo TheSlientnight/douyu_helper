@@ -16,17 +16,10 @@
           </mappings>
         </serverdata>
       </paths>
-      <paths name="myserver_mypython">
+      <paths name="dy_helper (project level)">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="ubuntu@119.29.64.174:22 key">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/ubuntu/dy_helper" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

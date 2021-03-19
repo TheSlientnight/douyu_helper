@@ -21,7 +21,7 @@ def get_glow():
     """
     # 需要先访问一次直播间才会获得道具
     logger.info("------正在获取荧光棒------")
-    go_room()
+    # go_room()
     glow_url = "/japi/prop/backpack/web/v1?rid=12306"
     glow_res = dyreq.request("get", glow_url)
     global Bags
@@ -41,6 +41,7 @@ def get_glow():
             logger.warning("当前背包中没有任何道具")
             logger.info("------背包检查结束------")
     except AssertionError:
+        logger.info(glow_res.json(), "\n",glow_res.status_code)
         logger.info("领取荧光棒时发生错误")
         logger.info("------背包检查结束------")
     return glow_res
@@ -107,7 +108,8 @@ def go_room():
         driver.add_cookie(mycookie)
     logger.info("刷新页面以完成登录")
     driver.refresh()
-    WebDriverWait(driver,20,0.5).until(lambda driver:driver.find_element_by_xpath("/html/body/section/header/div/div/div[3]/div[7]/div"))
+    WebDriverWait(driver, 20, 0.5).until(lambda drivers: drivers.find_element_by_xpath("/html/body/section/header/div"
+                                                                                       "/div/div[3]/div[7]/div"))
     a = driver.find_element_by_xpath("/html/body/section/header/div/div/div[3]/div[7]/div")
     if "UserInfo" in a.get_attribute("class"):
         logger.info("成功以登陆状态进入页面")
@@ -130,4 +132,4 @@ def setcookie(cookie):
 
 
 if __name__ == '__main__':
-    go_room()
+    get_glow()
