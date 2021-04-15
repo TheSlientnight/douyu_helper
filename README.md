@@ -75,3 +75,7 @@ Please be sure to abide by the Github terms when using Actions. Do not abuse the
 
 ### 二、本地执行
 * [ ] 待补充
+
+### 三、版本更新
+1. V1.0 工具开源
+2. V1.1 登录校验以及平均分配BUG修复
