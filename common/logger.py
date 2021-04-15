@@ -7,7 +7,7 @@ from common.dirs import file_log, LOGS_DIR
 
 class Logger:
 
-    def __new__(cls, file_name='run.log', *args, **kwargs):
+    def __new__(cls, *args, **kwargs):
         file = file_log(LOGS_DIR)
         log = logging.getLogger()
         log_config = conf.get_conf("log")

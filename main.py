@@ -32,7 +32,7 @@ def run():
                 logger.info("当前选择模式为:平均分配模式")
                 room_list = get_room_list()
                 every_give = math.ceil(glow_nums / len(room_list))
-                left = glow_nums - every_give
+                left = int(glow_nums) - int(every_give) * (len(room_list) - 1)
                 logger.info("------开始捐赠荧光棒------")
                 for room in room_list:
                     if room == room_list[-1]:
