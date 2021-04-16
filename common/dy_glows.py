@@ -34,7 +34,7 @@ def get_glow():
         # 防止没有道具导致程序报错
         if glow_res.json()['data']['list']:
             global Own
-            Own = jsonpath(glow_res.json(), '$..list[?(@.id == 268)].count')
+            Own = jsonpath(glow_res.json(), '$..list[?(@.id == 268)].count')[0]
             logger.info("当前拥有荧光棒%s个,给你喜欢的主播进行赠送吧" % Own)
             Bags = 1
             logger.info("------背包检查结束------")
