@@ -26,31 +26,34 @@ DouYu-Helper
 # 目录
 - [目录](#目录)
     - [使用说明](#使用说明)
-      - [一、Actions方式](#一、Actions方式)
-      - [二、本地执行](#二、本地执行)
+      - [一、Actions方式](#一、Actions方式(推荐))
+      - [二、本地执行](#二、本地执行(不推荐))
 
 ## 使用说明
 
-### 一、Actions方式
+### 一、Actions方式(推荐)
 1. **Fork本项目**
-2. **获取自己斗鱼账号的COOKIE**
-3. 使用浏览器登录[斗鱼](https://www.douyu.com)
-4. 按下F12打开[开发者工具]，在[网络/network]中打开筛选，选择XHR
-5. 随意点击一个请求,将请求头中的cookie复制出来
+2. 修改config.ini配置文件
+   ![修改配置文件](docs/img/Config.png)
+3. **获取自己斗鱼账号的COOKIE**(请注意：斗鱼的Token大概一周会失效，因此需要每周更新一次)
+4. 使用浏览器登录[斗鱼](https://www.douyu.com)
+5. 按下F12打开[开发者工具]，在[网络/network]中打开筛选，选择XHR
+6. 随意点击一个请求,将请求头中的cookie复制出来
 ![获取cookie](docs/img/cookie.png)
    
-6. 在项目内点击Setting -> Secrets -> New Secrets,并添加获取到的COOKIES
+   
+7. 在项目内点击Setting -> Secrets -> New Secrets,并添加获取到的COOKIES
 
 | Name        | Value                    |
 |-------------|--------------------------|
 |COOKIES      |按步骤5获取                 |
 |SERVERPUSHKEY|server酱(Turbo版)的推送sckey|
 ![添加Secrets](docs/img/Secrets.png)
-7. **开启Actions 并触发每日自动执行**
+8. **开启Actions 并触发每日自动执行**
    **Fork仓库之后，GitHub默认不自动执行Actions任务,请手动执行一次以检查工作流**
    ![运行任务](docs/img/Workfelow.png)
    
-8. 如果需要修改每日执行任务的时间,请修改`.github/auto_donate_douyu.yaml`下的`schedule`
+9. 如果需要修改每日执行任务的时间,请修改`.github/auto_donate_douyu.yaml`下的`schedule`
 ```yml
   schedule:
     - cron: '00 1 * * *'
@@ -75,5 +78,35 @@ Please be sure to abide by the Github terms when using Actions. Do not abuse the
    
 [日志示例](https://github.com/TheSlientnight/douyu_helper/runs/2078519193?check_suite_focus=true)
 
-### 二、本地执行
-* [ ] 待补充
+### 二、本地执行(不推荐)
+
+#### Windows命令行内执行
+执行步骤类似于GitHub执行，但是需要将你的COOKIE放入到系统的环境变量中
+1. 将代码clone到本地或直接下载压缩包
+2. 添加环境变量
+   
+    ![](docs/img/Path1.png)
+    ![](docs/img/Path2.png)
+    ![](docs/img/Path3.jpg)
+   
+3. 修改config.ini,详细做法可见[修改config配置](#一、Actions方式(推荐))
+4. 进入项目根目录，使用指令
+```shell
+python main.py
+```
+
+#### Linux命令行执行
+执行步骤同Windows执行，但是环境变量需要配置到/etc/Profile中
+![](docs/img/Linux1.png)
+![](docs/img/Linux2.png)
+添加完成后需要重新读取，使用指令
+```shell
+source /etc/profile
+```
+### 三、Docker镜像
+* [ ] 待更新
+
+### 四、版本记录
+V1.0 工具开源
+
+V1.1 修复平均分配问题
