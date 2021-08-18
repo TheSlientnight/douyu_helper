@@ -2,24 +2,17 @@
 <project version="4">
   <component name="PublishConfigData" autoUpload="Always" serverName="dy_helper" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="Copy of project-level server 'dy_helper'">
+      <paths name="dy_helper (project level)">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
-      <paths name="dy_helper">
+      <paths name="ubuntu@119.29.64.174:22 key">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/ubuntu/dy_helper" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="dy_helper (project level)">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/home/ubuntu/dy_helper" local="$PROJECT_DIR$" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
