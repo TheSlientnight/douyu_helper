@@ -98,7 +98,7 @@ def go_room():
     else:
         driver = webdriver.Chrome(options=chrome_options)
     logger.info("打开直播间")
-    driver.get('https://www.douyu.com/2132902')
+    driver.get('https://www.douyu.com/8291425')
     dy_cookie = setcookie(dyreq.cookie)
     for i in dy_cookie.keys():
         mycookie = {
