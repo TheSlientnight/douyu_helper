@@ -96,7 +96,7 @@ def go_room():
     driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
     logger.info("打开直播间")
     driver.get('https://www.douyu.com/8291425')
-    dy_cookie = setcookie(dyreq.cookie)
+    dy_cookie = set_cookie(dyreq.cookie)
     for i in dy_cookie.keys():
         mycookie = {
             'domain': '.douyu.com',
@@ -126,7 +126,7 @@ def go_room():
     logger.info("关闭直播间")
 
 
-def setcookie(cookie):
+def set_cookie(cookie):
     for line in cookie.split(';'):
         # 其设置为1就会把字符串拆分成2份
         name, value = line.strip().split('=', 1)

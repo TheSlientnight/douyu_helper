@@ -1,37 +1,31 @@
-# encoding:utf-8
-import logging
-import logging.handlers
-from common.config import conf
-from common.dirs import file_log, LOGS_DIR
+import time
+
+from loguru import logger
 
 
 class Logger:
+    __instance = None
 
     def __new__(cls, *args, **kwargs):
-        file = file_log(LOGS_DIR)
-        log = logging.getLogger()
-        log_config = conf.get_conf("log")
-        log.setLevel(log_config['logger_level'])
-        # 设置日志格式
-        log_fmt = logging.Formatter(fmt='%(asctime)s - 【%(levelname)s】: %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+        if not cls.__instance:
+            cls.__instance = super(Logger, cls).__new__(cls, *args, **kwargs)
 
-        # 实例化控制台渠道
-        log_stream = logging.StreamHandler()
-        log_stream.setFormatter(log_fmt)
-        log_stream.setLevel(log_config['stream_level'])
+        return cls.__instance
 
-        # 实例化输出文件
-        log_file = logging.FileHandler(file, encoding="UTF-8")
-        log_file.setFormatter(log_fmt)
-        log_file.setLevel(log_config['file_level'])
+    def __init__(self):
+        self.log = logger
 
-        # 添加至收集器
-        log.addHandler(log_stream)
-        log.addHandler(log_file)
-        return log
+    def info(self, msg):
+        return self.log.info(msg)
+
+    def debug(self, msg):
+        return self.log.debug(msg)
+
+    def warning(self, msg):
+        return self.log.warning(msg)
+
+    def error(self, msg):
+        return self.log.error(msg)
 
 
-logger = Logger()
-
-if __name__ == '__main__':
-    logger.info("test")
+loggers = Logger()
