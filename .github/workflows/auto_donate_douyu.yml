@@ -30,6 +30,4 @@ jobs:
           SERVERPUSHKEY: ${{ secrets.SERVERPUSHKEY }}
           COOKIES: ${{ secrets.COOKIES }}
         run: |
-          sudo cp -p ./chrome/chromedriver /usr/bin/
-          chmod -R 777 /usr/bin/chromedriver
           python main.py
