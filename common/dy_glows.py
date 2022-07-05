@@ -6,7 +6,8 @@ from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
-
+from webdriver_manager.chrome import ChromeDriverManager
+driver_path=ChromeDriverManager().install()
 from common.douyu_request import dyreq
 from common.logger import logger
 
@@ -94,7 +95,7 @@ def go_room():
     if "win" in sys.platform:
         driver = webdriver.Chrome(executable_path="chrome/chromedriver.exe", options=chrome_options)
     elif "linux" in sys.platform:
-        driver = webdriver.Chrome(executable_path="chrome/chromedriver", options=chrome_options)
+        driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
     else:
         driver = webdriver.Chrome(options=chrome_options)
     logger.info("打开直播间")
@@ -114,9 +115,9 @@ def go_room():
         driver.add_cookie(mycookie)
     logger.info("刷新页面以完成登录")
     driver.refresh()
-    WebDriverWait(driver, 30, 0.5).until(lambda drivers: drivers.find_element_by_xpath("/html/body/section/header/div"
+    WebDriverWait(driver, 30, 0.5).until(lambda drivers: drivers.find_element("xpath","/html/body/section/header/div"
                                                                                        "/div/div[3]/div[7]/div"))
-    a = driver.find_element_by_xpath("/html/body/section/header/div/div/div[3]/div[7]/div")
+    a = driver.find_element("xpath","/html/body/section/header/div/div/div[3]/div[7]/div")
     if "UserInfo" in a.get_attribute("class"):
         logger.info("成功以登陆状态进入页面")
         logger.info("如提示背包没有荧光棒请延长等待时间")
