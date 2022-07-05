@@ -3,3 +3,4 @@ lxml
 selenium
 pyvirtualdisplay
 jsonpath
+webdriver-manager

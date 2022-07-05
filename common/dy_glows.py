@@ -6,6 +6,7 @@ from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
+from webdriver_manager.chrome import ChromeDriverManager
 
 from common.douyu_request import dyreq
 from common.logger import logger
@@ -86,17 +87,13 @@ def glow_donate(num=1, room_id=12306):
 
 
 def go_room():
+    driver_path = ChromeDriverManager().install()  # 使用webdriver manager自动安装新版本
     chrome_options = Options()
     chrome_options.add_argument('--no-sandbox')  # 解决DevToolsActivePort文件不存在报错问题
     chrome_options.add_argument('--disable-gpu')  # 禁用GPU硬件加速，如果软件渲染器没有就位，则GPU进程将不会启动
     chrome_options.add_argument('--disable-dev-shm-usage')
     chrome_options.add_argument('--headless')  # 无界面
-    if "win" in sys.platform:
-        driver = webdriver.Chrome(executable_path="chrome/chromedriver.exe", options=chrome_options)
-    elif "linux" in sys.platform:
-        driver = webdriver.Chrome(executable_path="chrome/chromedriver", options=chrome_options)
-    else:
-        driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Chrome(executable_path=driver_path, options=chrome_options)
     logger.info("打开直播间")
     driver.get('https://www.douyu.com/8291425')
     dy_cookie = setcookie(dyreq.cookie)
@@ -114,9 +111,9 @@ def go_room():
         driver.add_cookie(mycookie)
     logger.info("刷新页面以完成登录")
     driver.refresh()
-    WebDriverWait(driver, 30, 0.5).until(lambda drivers: drivers.find_element("xpath","/html/body/section/header/div"
+    WebDriverWait(driver, 30, 0.5).until(lambda drivers: drivers.find_element("xpath", "/html/body/section/header/div"
                                                                                        "/div/div[3]/div[7]/div"))
-    a = driver.find_element("xpath","/html/body/section/header/div/div/div[3]/div[7]/div")
+    a = driver.find_element("xpath", "/html/body/section/header/div/div/div[3]/div[7]/div")
     if "UserInfo" in a.get_attribute("class"):
         logger.info("成功以登陆状态进入页面")
         logger.info("如提示背包没有荧光棒请延长等待时间")
