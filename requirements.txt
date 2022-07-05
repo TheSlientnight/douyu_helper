@@ -1,6 +1,5 @@
-requests
-lxml
-selenium
-pyvirtualdisplay
-jsonpath
-webdriver-manager
+requests>=2.28.1
+lxml>=4.9.1
+selenium>=4.3.0
+jsonpath>=0.82
+loguru>=0.6.0
