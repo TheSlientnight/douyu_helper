@@ -20,8 +20,6 @@ jobs:
           python-version: 3.7
       - name: 'Install requirements'
         run: pip install -r requirements.txt
-      - name: 'Set driver'
-        run: sudo chmod -R 777 ./chrome/chromedriver
       - name: 'Working'
         env:
 #          ACF_AUTH: ${{ secrets.ACF_AUTH }}
