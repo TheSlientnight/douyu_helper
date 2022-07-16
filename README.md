@@ -42,24 +42,24 @@ DouYu-Helper
 ![获取cookie](docs/img/cookie.png)
    
    
-7. 在项目内点击Setting -> Secrets -> New Secrets,并添加获取到的COOKIES
+7. 在项目内点击Setting -> Secrets -> Actions -> New repository secret,并添加获取到的COOKIES
 
 | Name        | Value                    |
 |-------------|--------------------------|
 |COOKIES      |按步骤5获取                 |
-|SERVERPUSHKEY|server酱(Turbo版)的推送sckey|
+|SERVERPUSHKEY|server酱(Turbo版)的推送sckey(可选配置)|
 ![添加Secrets](docs/img/Secrets.png)
 8. **开启Actions 并触发每日自动执行**
    **Fork仓库之后，GitHub默认不自动执行Actions任务,请手动执行一次以检查工作流**
    ![运行任务](docs/img/Workfelow.png)
    
-9. 如果需要修改每日执行任务的时间,请修改`.github/auto_donate_douyu.yaml`下的`schedule`
+9. 如果需要修改每日执行任务的时间,请修改`.github/workflows/auto_donate_douyu.yml`下的`schedule`
 ```yml
   schedule:
     - cron: '00 1 * * *'
     # cron表达式，Actions时区是国际时间，国际时间1点的时候，国内时间是早上9点。
     # 示例： 每天晚上22点30执行 '30 14 * * *'
--   # 部分直播间会在周末开启双倍亲密度，可以修改时间表，实现每周末赠送
+    # 部分直播间会在周末开启双倍亲密度，可以修改时间表，实现每周末赠送
     # 示例： 每周天凌晨12点30分执行 '0 30 16 ? * 7 '
 ```
 如果收到了 GitHub Action 的错误邮件，请检查 Cookies 是不是失效了，用户修改密码、踢除设备下线，会导致 COOKIES 失效
