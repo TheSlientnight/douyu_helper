@@ -48,6 +48,7 @@ DouYu-Helper
 |-------------|--------------------------|
 |COOKIES      |按步骤5获取                 |
 |SERVERPUSHKEY|server酱(Turbo版)的推送sckey(可选配置)|
+|BARKURL|[Bark](https://apps.apple.com/us/app/bark-customed-notifications/id1403753865) 的推送链接(可选配置)|
 ![添加Secrets](docs/img/Secrets.png)
 8. **开启Actions 并触发每日自动执行**
    **Fork仓库之后，GitHub默认不自动执行Actions任务,请手动执行一次以检查工作流**
