@@ -25,5 +25,6 @@ jobs:
         env:
           SERVERPUSHKEY: ${{ secrets.SERVERPUSHKEY }}
           COOKIES: ${{ secrets.COOKIES }}
+          BARKURL: ${{ secrets.BARKURL }}
         run: |
           python main.py
