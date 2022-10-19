@@ -4,3 +4,4 @@ selenium>=4.3.0
 jsonpath>=0.82
 loguru>=0.6.0
 webdriver-manager>=3.8.0
+pacaking
