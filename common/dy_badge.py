@@ -1,8 +1,12 @@
 # encoding:utf-8
 from common.douyu_request import dyreq
 from common.logger import logger
+from common.config import conf
+from common.get_secrets import get_secrets
 from lxml import etree
 import re
+import math
+import requests
 
 
 def get_badge():
@@ -45,8 +49,13 @@ def get_need_exp():
     """
     :return:通过数组方式返回升级所需经验
     """
+    nums = conf.get_conf_list('selfMode', 'giftCount')
     for i in range(len(get_badge()[1])):
-        logger.info("房间号%s升级还需%s点经验" % (get_room_list()[i], get_badge()[1][i]))
+        days_require = int(math.ceil(int(math.ceil(get_badge()[1][i])) / int(nums[i])))
+        logger.info("房间号%s升级还需%s点经验,还需%s天" % (get_room_list()[i], get_badge()[1][i], days_require))
+        barkurl = get_secrets('BARKURL')
+        if barkurl.startswith('http'):
+            requests.get(barkurl + "/房间号%s/升级还需%s点经验,+%s天" % (get_room_list()[i], get_badge()[1][i], days_require))
 
 
 if __name__ == '__main__':
